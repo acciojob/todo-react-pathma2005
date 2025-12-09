@@ -1,30 +1,40 @@
-import React, { useState } from  "react";
+import React, { useState } from "react";
 import "./todolist.css";
 
-function ToDoList(){
-    const[task,setTask]=useState([]);
-    const[input,setinput]=useState("");
-    const handlechange=()=>{
-        setTask([...task,input]);
-        setinput("");
-    };
-  const handleremove=(index)=>{
-    setTask(task.filter((_, i) => i !== index));
-  }
-  return(
+function ToDoList() {
+  const [todos, setTodos] = useState([]);
+  const [newTodo, setNewTodo] = useState("");
+
+  const handleAddTodo = () => {
+    setTodos([...todos, newTodo]);
+    setNewTodo("");
+  };
+
+  const handleRemoveTodo = (index) => {
+    setTodos(todos.filter((_, i) => i !== index));
+  };
+
+  return (
     <div>
-        <p>To-Do List</p>
-        <input type="text" value={input} onClick={(e)=>setinput(e.target.value)}/>
-        <button onClick={handlechange}>Add Todo</button>
-        <ul>
-          {task.map((item,index)=>(
-            <div className="item">
-                <li key ={index}>{item}</li>
-                <button onClick={()=>handleremove(index)}>Delete</button>
-            </div>
-          ))}
-        </ul>
+      <p>To-Do List</p>
+      <input
+        type="text"
+        value={newTodo}
+        onChange={(e) => setNewTodo(e.target.value)}
+      />
+      <button onClick={handleAddTodo}>Add Todo</button>
+      <ul>
+        {todos.map((todo, index) => (
+          <div className="item">
+            <li key={index}>
+              {todo}
+            </li>
+            <button onClick={() => handleRemoveTodo(index)}>Delete</button>
+          </div>
+        ))}
+      </ul>
     </div>
-  )
+  );
 }
+
 export default ToDoList;
